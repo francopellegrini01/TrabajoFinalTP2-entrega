@@ -9,7 +9,7 @@ export const EmpleadoModel = sequelize.define(
 			primaryKey: true,
 			autoIncrement: true,
 			allowNull: false,
-			field: "legajo", // si tu columna se llama legajo
+			field: "id",
 		},
 		dni: {
 			type: DataTypes.STRING(20),

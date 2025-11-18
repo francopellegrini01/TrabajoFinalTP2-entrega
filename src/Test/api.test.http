@@ -40,8 +40,8 @@ PATCH   {{Host}}:{{Port}}/{{EndpointTempalte}}/update
 Content-Type: application/json
 
 {
-  "nombre": "analia",
-  "apellido": "limachi",
+  "nombre": "Anna Belen",
+  "apellido": "Acevedo",
   "id": 27,
-  "email": "pruebaDeFranco@example.com"
+  "email": "annabelenAcevedo@example.com"
 }
