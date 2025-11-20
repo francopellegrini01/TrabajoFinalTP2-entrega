@@ -45,3 +45,9 @@ Content-Type: application/json
   "id": 27,
   "email": "annabelenAcevedo@example.com"
 }
+
+### API EXTERNA - TODAS LAS CAPACITACIONES EXTERNAS
+GET  {{Host}}:{{Port}}/api/capacitaciones-externas
+
+### API EXTERNA - FILTRAR POR CATEGORIA
+GET  {{Host}}:{{Port}}/api/capacitaciones-externas/Sistemas

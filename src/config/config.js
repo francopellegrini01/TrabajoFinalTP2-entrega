@@ -8,6 +8,10 @@ dotenv.config();
 //conviene que este todo centralizado, y esto es lo que hace el archivo config.
 //centraliza toda tu informacion relevante, sin necesidad, que el usuario sepa.
 
+//Link Api externa
+export const DATOSAPI_URL =
+	"https://691e2d3bbb52a1db22bd39ef.mockapi.io/api/capacitacionesExternas/CapacitacionesExternas";
+
 const {
 	MYSQL_DB,
 	MYSQL_USER,

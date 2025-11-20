@@ -3,7 +3,7 @@
 import { config } from "./src/config/config.js";
 import { sequelize } from "./src/databases/mysql.cnx.js";
 import express from "express";
-import server from "./server.js";
+import server from "./src/server.js";
 
 //const server = express();
 
