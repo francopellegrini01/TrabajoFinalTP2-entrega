@@ -2,7 +2,7 @@ import express from "express";
 import morgan from "morgan";
 import EmpleadoRouter from "./router/empleado.router.js";
 import apiExternaRouter from "./router/api.externa.router.js";
-import jwtRouter from './router/admin.router.js';
+import jwtRouter from './router/admin.token.router.js';
 import empleadoAdminRouter from "./router/empleado.admin.router.js";
 
 //inicializamos express
