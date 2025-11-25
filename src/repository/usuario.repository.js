@@ -7,4 +7,11 @@ export const UsuarioRepository = {
     return usuarios;
   },
 
+  // Reporte: cantidad de usuarios con rol RRHH
+  getCantidadUsuariosRrhh: async () => {
+    return await UsuarioModel.count({
+      where: { rol: "rrhh" },
+    });
+  },
+
 };

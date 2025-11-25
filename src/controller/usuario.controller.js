@@ -13,4 +13,27 @@ export const UsuarioController = {
       response.status(500).json({ error: "Error interno del servidor" });
     }
   },
+
+  // Reporte: cantidad de usuarios con rol RRHH
+  getCantidadUsuariosRrhh: async (req, res) => {
+    try {
+      const cantidad = await UsuarioRepository.getCantidadUsuariosRrhh();
+
+      return res.status(200).json({
+        ok: true,
+        code: 200,
+        payload: {
+          rol: "rrhh",
+          cantidad,
+          mensaje: `Tu equipo de Recursos Humanos se encuentra conformado por ${cantidad} usuarios.`
+        },
+      });
+    } catch (error) {
+      console.log("ERROR en cantidad de usuarios RRHH:", error.message);
+      return res.status(500).json({
+        ok: false,
+        error: "Error interno del servidor",
+      });
+    }
+  },
 };

@@ -31,3 +31,18 @@ Accept: application/json
 DELETE {{Host}}:{{Port}}/{{EndpointTemplate}}/delete-hard/23
 Authorization: Bearer {{token}}
 Accept: application/json
+
+### Admin: Estadistica- Sueldo promedio por area
+GET {{Host}}:{{Port}}/{{EndpointTemplate}}/estadisticas/promedio-sueldo-area
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Admin: Reporte - Cantidad de empleados por área
+GET {{Host}}:{{Port}}/{{EndpointTemplate}}/estadisticas/cantidad-area
+Authorization: Bearer {{token}}
+Accept: application/json
+
+### Admin: Reporte - Cantidad de usuarios con rol RRHH
+GET {{Host}}:{{Port}}/api/usuario/estadisticas/cantidad-rrhh
+Authorization: Bearer {{token}}
+Accept: application/json

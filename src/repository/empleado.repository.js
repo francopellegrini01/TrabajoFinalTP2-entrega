@@ -1,4 +1,5 @@
 import { EmpleadoModel } from "../model/empleado.model.js";
+import { sequelize } from "../databases/mysql.cnx.js";
 
 export const EmpleadoRepository = {
 
@@ -88,4 +89,41 @@ export const EmpleadoRepository = {
 			empleado_activo: true, // aseguramos que sea activo
 		});
 	},
+
+	// Estadistica: sueldo promedio por area (redondeado)
+	getPromedioSueldosPorArea: async () => {
+		return await EmpleadoModel.findAll({
+			attributes: [
+				"area", 
+				[
+					sequelize.fn(
+						"ROUND",
+						sequelize.fn("AVG", sequelize.col("salarioBase")) // promedio de salario
+					),
+					"promedio_sueldo"
+				]
+			],
+			where: {
+				empleado_activo: true, // solo empleados activos
+			},
+			group: ["area"],
+		});
+	},
+
+	// Reporte: cantidad de empleados por area (solo empleados activos)
+	getCantidadEmpleadosPorArea: async () => {
+		return await EmpleadoModel.findAll({
+			attributes: [
+				"area",
+				[sequelize.fn("COUNT", sequelize.col("id")), "cantidad_empleados"] // contar empleados
+			],
+			where: {
+				empleado_activo: true // solo empleados activos
+			},
+			group: ["area"] // agrupar por area
+		});
+	},
+
+
+
 };

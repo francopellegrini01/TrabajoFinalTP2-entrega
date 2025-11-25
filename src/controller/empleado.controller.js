@@ -285,4 +285,47 @@ export const EmpleadoController = {
 			response.status(400).json({ error: error.message });
 		}
 	},
+
+	// Estadistica: sueldo promedio por area
+	getPromedioSueldosPorArea: async (req, res) => {
+		try {
+			const resultado = await EmpleadoRepository.getPromedioSueldosPorArea();
+
+			return res.status(200).json({
+				ok: true,
+				code: 200,
+				payload: resultado
+			});
+
+		} catch (error) {
+			console.log("ERROR en estadistica sueldo promedio por area:", error.message);
+			return res.status(500).json({
+				ok: false,
+				error: "Error interno del servidor"
+			});
+		}
+	},
+
+	// Reporte: cantidad de empleados por area (solo empleados activos)
+	getCantidadEmpleadosPorArea: async (req, res) => {
+		try {
+			const resultado = await EmpleadoRepository.getCantidadEmpleadosPorArea();
+
+			return res.status(200).json({
+				ok: true,
+				code: 200,
+				message: "Cantidad de empleados activos por area",
+				payload: resultado
+			});
+
+		} catch (error) {
+			console.log("ERROR en cantidad de empleados por área:", error.message);
+			return res.status(500).json({
+				ok: false,
+				error: "Error interno del servidor"
+			});
+		}
+	},
+
+
 };

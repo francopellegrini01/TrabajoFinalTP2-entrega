@@ -5,6 +5,9 @@ import { authenticateToken } from "../middleware/authentication.js";
 
 const UsuarioRouter = express.Router();
 
-UsuarioRouter.get("/all",authenticateToken, authorizeAdmin, UsuarioController.getAllUsuarios);
+UsuarioRouter.get("/all", authenticateToken, authorizeAdmin, UsuarioController.getAllUsuarios)
+
+// Reporte: cantidad de usuarios con rol RRHH
+UsuarioRouter.get("/estadisticas/cantidad-rrhh", authenticateToken, authorizeAdmin, UsuarioController.getCantidadUsuariosRrhh);
 
 export default UsuarioRouter;
