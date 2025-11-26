@@ -10,6 +10,11 @@ import AuthRouter from "./router/auth.router.js";
 import WelcomeRouter from "./router/welcome.router.js";
 import notFoundHandler from "./middleware/notFoundHandler.js";
 
+// 👇 Acá va el bloque que preguntaste
+const PORT = process.env.PORT || config.SERVER_PORT;
+app.listen(PORT, () => {
+  console.log(`Servidor corriendo en puerto ${PORT}`);
+});
 
 //instancio express
 const server = express();
