@@ -11,10 +11,10 @@ POST {{Host}}:{{Port}}/api/auth/signup
 Content-Type: {{contentType}}
 
 {
-  "email": "fran@example.com",
+  "email": "eze@example.com",
   "password": "password123",
-  "nombre": "fran",
-  "apellido": "fran",
+  "nombre": "eze",
+  "apellido": "eze",
   "rol": "rrhh"
 }
 
@@ -24,7 +24,7 @@ POST {{Host}}:{{Port}}/api/auth/login
 Content-Type: {{contentType}}
 
 {
-  "email": "fran@example.com",
+  "email": "eze@example.com",
   "password": "password123"
 }
 
@@ -98,3 +98,4 @@ Accept: application/json
 GET  {{Host}}:{{Port}}/{{EndpointTemplate}}/estadisticas/activos-por-area
 Authorization: Bearer {{token}}
 Accept: application/json
+

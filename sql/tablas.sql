@@ -19,7 +19,7 @@ CREATE TABLE IF NOT EXISTS empleados (
   empleado_activo BOOLEAN DEFAULT TRUE
 );
 
-select * from empleados e 
+select * from empleados e; 
 
 INSERT INTO empleados 
 (nombre, apellido, dni, email, telefono, fechaNacimiento, fechaIngreso, salarioBase, genero, area, puesto, empleado_activo)
@@ -62,9 +62,8 @@ CREATE TABLE IF NOT EXISTS usuarios (
     rol ENUM('admin', 'rrhh') NOT NULL       -- rol dentro del sistema
 );
 
--- cuando hagamos el signup con Supabase, vamos a guardar acá el auth_user_id, email, nombre y rol.
+select * from usuarios;
 
--- USUARIOS DE EJEMPLO- Los auth_user_id son strings cualquiera por ahora (luego seran los reales de Supabase).
 INSERT INTO usuarios (auth_user_id, nombre, apellido, email, rol)
 VALUES
   ('supabase_uid_001', 'Daniela', 'Ríos', 'daniela.rios@empresa.com', 'admin'),

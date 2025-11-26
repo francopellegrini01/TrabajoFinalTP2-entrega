@@ -41,9 +41,23 @@ export const AuthController = {
             });
 
             if (error) {
-                console.log("SUPABASE SIGNUP ERROR:", error); // para ver en consola el error de supabase
-                return response.status(400).json({ message: error.message });
+                console.log("SUPABASE SIGNUP ERROR:", error);
+
+                // Si el usuario ya existe en Supabase
+                if (error.code === "user_already_exists") {
+                    return response.status(409).json({
+                        ok: false,
+                        message: "El usuario ya está registrado. Por favor, inicie sesión."
+                    });
+                }
+
+                // Otros errores de Supabase
+                return response.status(400).json({
+                    ok: false,
+                    message: error.message
+                });
             }
+
 
             const authUserId = data.user.id;
 
@@ -59,7 +73,7 @@ export const AuthController = {
             const token = data.session?.access_token;
 
             return response.status(201).json({
-                message: "El usuario ${usuario.email} se ha dado de alta en RRHH-App",
+                message: `El usuario ${usuario.email} se ha dado de alta en RRHH-App`,
                 user: {
                     id: usuario.id,
                     nombre: usuario.nombre,
