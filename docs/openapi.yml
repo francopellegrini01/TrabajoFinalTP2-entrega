@@ -1,0 +1,316 @@
+openapi: 3.0.0
+info:
+  title: RRHH-App API
+  version: 1.0.0
+  description: API para gestión de empleados, usuarios, autenticación y capacitaciones externas.
+
+servers:
+  - url: http://localhost:3001
+    description: Servidor local
+
+tags:
+  - name: Sistema
+    description: Estado y bienvenida
+  - name: Auth
+    description: Registro y login
+  - name: Empleado
+    description: CRUD y estadísticas de empleados
+  - name: Usuario
+    description: Administración y estadísticas de usuarios
+  - name: Capacitaciones
+    description: Capacitaciones externas
+
+paths:
+  /:
+    get:
+      tags: [Sistema]
+      summary: Bienvenida
+      responses:
+        '200':
+          description: Mensaje de bienvenida
+
+  /healthCheck:
+    get:
+      tags: [Sistema]
+      summary: Estado de salud del servicio
+      responses:
+        '200':
+          description: Servicio operativo
+
+  /api/auth/signup:
+    post:
+      tags: [Auth]
+      summary: Registrar nuevo usuario
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Signup'
+      responses:
+        '201':
+          description: Usuario registrado
+
+  /api/auth/login:
+    post:
+      tags: [Auth]
+      summary: Iniciar sesión
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Login'
+      responses:
+        '200':
+          description: Token JWT generado
+
+  /api/capacitaciones-externas:
+    get:
+      tags: [Capacitaciones]
+      summary: Obtener todas las capacitaciones externas
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de capacitaciones
+
+  /api/capacitaciones-externas/{categoria}:
+    get:
+      tags: [Capacitaciones]
+      summary: Obtener capacitaciones externas por categoría
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: categoria
+          in: path
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Lista filtrada
+
+  /api/empleado/select/{id}:
+    get:
+      tags: [Empleado]
+      summary: Obtener empleado por ID
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Empleado encontrado
+
+  /api/empleado/create:
+    post:
+      tags: [Empleado]
+      summary: Crear empleado
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmpleadoCreate'
+      responses:
+        '201':
+          description: Empleado creado
+
+  /api/empleado/update:
+    patch:
+      tags: [Empleado]
+      summary: Actualizar empleado
+      security:
+        - bearerAuth: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/EmpleadoUpdate'
+      responses:
+        '200':
+          description: Empleado actualizado
+
+  /api/empleado/delete/{id}:
+    delete:
+      tags: [Empleado]
+      summary: Eliminar empleado (soft delete)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Eliminado
+
+  /api/empleado/all:
+    get:
+      tags: [Empleado]
+      summary: Obtener todos los empleados (solo admin)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de empleados
+
+  /api/empleado/delete-hard/{id}:
+    delete:
+      tags: [Empleado]
+      summary: Eliminar empleado definitivamente (solo admin)
+      security:
+        - bearerAuth: []
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Eliminado
+
+  /api/empleado/estadisticas/promedio-sueldo-area:
+    get:
+      tags: [Empleado]
+      summary: Sueldo promedio por área (solo admin)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Estadística de sueldos
+
+  /api/empleado/estadisticas/cantidad-area:
+    get:
+      tags: [Empleado]
+      summary: Cantidad de empleados por área (solo admin)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Estadística de cantidad
+
+  /api/empleado/estadisticas/genero-por-area:
+    get:
+      tags: [Empleado]
+      summary: Distribución de género por área
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Estadística de género
+
+  /api/empleado/estadisticas/activos-por-area:
+    get:
+      tags: [Empleado]
+      summary: Empleados activos e inactivos por área
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Estadística de activos/inactivos
+
+  /api/usuario/all:
+    get:
+      tags: [Usuario]
+      summary: Obtener todos los usuarios (solo admin)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Lista de usuarios
+
+  /api/usuario/estadisticas/cantidad-rrhh:
+    get:
+      tags: [Usuario]
+      summary: Cantidad de usuarios con rol RRHH (solo admin)
+      security:
+        - bearerAuth: []
+      responses:
+        '200':
+          description: Conteo de usuarios RRHH
+
+components:
+  securitySchemes:
+    bearerAuth:
+      type: http
+      scheme: bearer
+      bearerFormat: JWT
+
+  schemas:
+    Login:
+      type: object
+      required:
+        - email
+        - password
+      properties:
+        email:
+          type: string
+          example: "caro@example.com"
+        password:
+          type: string
+          example: "123456"
+
+    Signup:
+      type: object
+      required:
+        - email
+        - password
+        - rol
+      properties:
+        email:
+          type: string
+          example: "caro@example.com"
+        password:
+          type: string
+          example: "123456"
+        rol:
+          type: string
+          example: "admin"
+
+    EmpleadoCreate:
+      type: object
+      required:
+        - nombre
+        - puesto
+        - salario
+        - area
+      properties:
+        nombre:
+          type: string
+          example: "Carolina"
+        puesto:
+          type: string
+          example: "Backend Developer"
+        salario:
+          type: number
+          example: 50000
+        area:
+          type: string
+          example: "RRHH"
+
+    EmpleadoUpdate:
+      type: object
+      properties:
+        id:
+          type: integer
+          example: 1
+        nombre:
+          type: string
+        puesto:
+          type: string
+        salario:
+          type: number
+        area:
+          type: string

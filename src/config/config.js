@@ -24,6 +24,7 @@ const {
 	SERVER_HOST,
 	SUPABASE_URL,      
 	SUPABASE_API_KEY,
+	JWT_SECRET,
 } = process.env;
 
 //exporta los mismos elementos que obtiene
@@ -38,4 +39,5 @@ export const config = {
 	SERVER_HOST,
 	SUPABASE_URL,
 	SUPABASE_API_KEY,
+	JWT_SECRET,
 };
