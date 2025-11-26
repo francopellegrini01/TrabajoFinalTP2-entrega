@@ -1,6 +1,8 @@
 import { Sequelize } from "sequelize";
 import { config } from "../config/config.js";
 
+import 'mysql2'; 
+
 export const sequelize = new Sequelize(
 	config.MYSQL_DB,
 	config.MYSQL_USER,
