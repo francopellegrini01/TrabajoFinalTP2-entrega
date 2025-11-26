@@ -11,10 +11,10 @@ POST {{Host}}:{{Port}}/api/auth/signup
 Content-Type: {{contentType}}
 
 {
-  "email": "usuario@example.com",
+  "email": "fran@example.com",
   "password": "password123",
-  "nombre": "Usuario",
-  "apellido": "Prueba",
+  "nombre": "fran",
+  "apellido": "fran",
   "rol": "rrhh"
 }
 
@@ -24,7 +24,7 @@ POST {{Host}}:{{Port}}/api/auth/login
 Content-Type: {{contentType}}
 
 {
-  "email": "usuario@example.com",
+  "email": "fran@example.com",
   "password": "password123"
 }
 
@@ -39,7 +39,7 @@ Accept: application/json
 
 
 ###  2) RRHH: delete empleado por ID (eliminacion logica)
-DELETE  {{Host}}:{{Port}}/{{EndpointTemplate}}/delete/23
+DELETE  {{Host}}:{{Port}}/{{EndpointTemplate}}/delete/21
 Authorization: Bearer {{token}}
 Accept: application/json
 
@@ -51,13 +51,13 @@ Content-Type: application/json
 {
   "nombre": "Leo",
   "apellido": "Messi",
-  "dni": "00001111",
+  "dni": "00001118",
   "telefono": "112",
   "email": "leo@example.com",
   "fechaNacimiento": "1990-06-15",
   "fechaIngreso": "2024-03-10",
-  "salarioBase": "1900000",
-  "genero": "m",
+  "salarioBase": "190000000",
+  "genero": "l",
   "area": "Finanzas",
   "puesto": "Contador"
 }

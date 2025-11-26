@@ -4,6 +4,8 @@ import EmpleadoRouter from "./router/empleado.router.js";
 import apiExternaRouter from "./router/api.externa.router.js";
 import UsuarioRouter from "./router/usuario.router.js";
 import AuthRouter from "./router/auth.router.js";
+import WelcomeRouter from "./router/welcome.router.js";
+import notFoundHandler from "./middleware/notFoundHandler.js";
 
 
 //instancio express
@@ -15,7 +17,11 @@ server.use(express.json());
 server.use(express.urlencoded({ extended: true }));
 server.use(morgarnModule); //logging de las peticiones al server
 
-// Rutas de autenticación (signup/login)
+
+// Presentación del servidor
+server.use("/", WelcomeRouter);
+
+// Rutas de autenticación (signup/login) JWT + Supabase Auth
 server.use("/api/auth", AuthRouter);
 
 // middleware para api externa
@@ -28,9 +34,8 @@ server.use("/api/empleado", EmpleadoRouter);
 server.use("/api/usuario", UsuarioRouter);
 
 
-//catch-all for error 404
-server.use((req, res, next) => {
-	res.status(404).send("No está disponible este endpoint: " + req.url);
-});
+// not found es para rutas que no existen
+server.use(notFoundHandler);
+
 
 export default server;

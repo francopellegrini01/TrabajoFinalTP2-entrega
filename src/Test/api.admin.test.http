@@ -46,3 +46,8 @@ Accept: application/json
 GET {{Host}}:{{Port}}/api/usuario/estadisticas/cantidad-rrhh
 Authorization: Bearer {{token}}
 Accept: application/json
+
+
+### Prueba 404 - Ruta inexistente
+GET {{Host}}:{{Port}}/ruta
+Accept: application/json
