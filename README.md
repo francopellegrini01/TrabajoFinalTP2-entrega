@@ -1,41 +1,118 @@
-# RRHH – Gestión de Empleados  
-*API REST* para administración interna de empleados, desarrollada como **Trabajo Final de Taller de Programación II (ORT Argentina).**
+TP2 – API de Productos + CSV de Albums
+Taller de Programación II  
+Alumna: Carolina Limachi
 
----
+Descripción del Proyecto
+La API de Productos + CSV de Albums es un servicio REST desarrollado en Node.js  que permite:
 
-## Descripción del Proyecto
+Gestionar productos almacenados en MongoDB Atlas
+Consumir una API externa de álbumes musicales
+Generar un archivo CSV con los primeros 15 álbumes
+Devolver ese CSV al cliente
 
-**RRHH – Gestión de Empleados** es una API REST que permite administrar empleados, usuarios internos y estadísticas del área de Recursos Humanos.  
-El sistema utiliza **Supabase + JWT** para autenticación segura, **MySQL + Sequelize** para base de datos y una arquitectura limpia en capas (controllers, repository, routers, modelos, middleware).
+El proyecto sigue una arquitectura modular en capas, lo que facilita mantenimiento, escalabilidad y claridad:
 
-Incluye:
+controllers/
+services/
+repository/
+middleware/
+validators/
+config/
+router/
+databases/
+data/
 
-- ABM completo de empleados  
-- Eliminación lógica y eliminación definitiva (solo admin)  
-- Sistema de roles: **admin** y **rrhh**  
-- Gestión interna de usuarios  
-- Consumo de una API externa  
-- Reportes y estadísticas  
-- Endpoints de estado del servidor (welcome + healthcheck)  
+Características principales
+Productos
+CRUD completo
+Validación de datos
+Persistencia en MongoDB Atlas mediante Mongoose
+Manejo de errores con formato estándar
+Protección de rutas sensibles mediante API Key
 
-**Repositorio GitHub:**  
-🔗 https://github.com/francopellegrini01/TrabajoFinalTP2-entrega  
+CSV de Albums
+Consumo de API externa:
+https://jsonplaceholder.typicode.com/albums
+Selección de los primeros 15 álbumes
+Conversión a CSV
+Guardado en /data/albums_15.csv
+Respuesta en formato text/csv
 
-**Tecnologías principales:**  
-- Node.js  
-- Express  
-- Supabase Auth (JWT)  
-- MySQL + Sequelize  
-- Morgan  
-- dotenv  
+Tecnologías utilizadas
+Node.js
+Express
+MongoDB Atlas
+Mongoose
+Morgan
+dotenv
 
-**Scripts disponibles:**  
-- `npm run dev` → Inicia el servidor en modo desarrollo  
-- `npm run linter:check` → Ejecuta Biome para análisis de código  
-- `npm run linter:format` → Formatea el código automáticamente  
+Endpoints principales
+Productos – /api/v1/productos
+Método	Ruta	Descripción
+GET	/	Listar todos los productos
+GET	/:id	Obtener producto por ID
+POST	/	Crear producto
+PUT	/:id	Actualizar producto (requiere API Key)
+DELETE	/:id	Eliminar producto (requiere API Key)
+Albums CSV – /api/v1/albums/csv
+Método	Ruta	Descripción
+GET	/	Genera y devuelve un CSV con los primeros 15 álbumes
+Este endpoint puede protegerse mediante API Key según configuración en .env.
+
+Seguridad
+La API utiliza solo API Key
+
+API Key
+Header requerido:
+
+x-api-key: <valor_configurado>
+Se aplica a:
+
+PUT /api/v1/productos/:id
+
+DELETE /api/v1/productos/:id
+
+(Opcional) GET /api/v1/albums/csv
 
 
-**Integrandes del grupo:**  
-- M. Daniela, Rios Valencia
-- Franco, Pellegrini
-- Carolina, Limachi
+Variables de entorno
+Ejemplo de .env:
+
+PORT=3001
+
+DB_PROVIDER=mongo
+MONGO_URI=<tu_uri_de_mongo_atlas>
+
+API_KEY=soy-una-api-key
+PROTECT_ALBUMS_CSV=false
+
+
+Scripts disponibles
+Script	Descripción
+npm run start	Inicia el servidor
+npm run dev	Modo desarrollo con watch
+npm run linter:check	Ejecuta Biome
+npm run linter:format	Formatea el código
+
+Estructura del proyecto
+
+data/
+  albums_15.csv
+src/
+  config/
+  controller/
+  databases/
+  middleware/
+  repository/
+  router/
+  services/
+  validators/
+Test/
+app.js o index.js
+
+Estado del proyecto
+Cumple todos los requisitos del TP2
+Arquitectura clara y defendible
+Código limpio y minimalista
+Validaciones y manejo de errores correctos
+CSV generado dinámicamente desde API externa

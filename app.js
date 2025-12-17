@@ -1,24 +1,17 @@
-//el dato del puerto viene del config de la DB
-
-import { config } from "./src/config/config.js";
-import { sequelize } from "./src/databases/mysql.cnx.js";
-import express from "express";
 import server from "./src/server.js";
-
-//const server = express();
+import { config } from "./src/config/config.js";
+import { connectMongo } from "./src/databases/mongo.cnx.js";
 
 const runServer = async () => {
-	try {
-		await sequelize.authenticate();
-		console.log(`Conexión establecida con: ${config.MYSQL_HOST}`);
-		server.listen(config.SERVER_PORT, config.SERVER_HOST, () =>
-			console.log(
-				`server is running at: http://${config.SERVER_HOST}:${config.SERVER_PORT}`,
-			),
-		);
-	} catch (error) {
-		console.log(`Error en: ${config.MYSQL_HOST}`, error.message);
-	}
+  await connectMongo();
+
+  server.listen(config.port, () => {
+    console.log(`Server running at http://localhost:${config.port}`);
+  });
 };
 
-runServer();
+runServer().catch((err) => {
+  console.error("Error al iniciar el servidor:", err);
+  process.exit(1);
+});
+

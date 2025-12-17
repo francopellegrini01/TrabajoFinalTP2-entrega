@@ -1,0 +1,53 @@
+@Host = http://127.0.0.1
+@Port = 3001
+@contentType = application/json
+
+### ID MongoDB de un producto (reemplazar por uno real)
+@id =6941f14b14eb2187f51b3cf0
+
+
+
+### GET todos los productos
+GET {{Host}}:{{Port}}/api/v1/productos
+Accept: application/json
+
+
+### Crear producto
+POST {{Host}}:{{Port}}/api/v1/productos
+Content-Type: {{contentType}}
+
+{
+  "producto": "MONITOR",
+  "stockAmount": 6
+}
+
+
+### GET por ID
+GET {{Host}}:{{Port}}/api/v1/productos/{{id}}
+Accept: application/json
+
+
+### UPDATE por ID 
+PUT {{Host}}:{{Port}}/api/v1/productos/{{id}}
+Content-Type: {{contentType}}
+x-api-key:Aprobada
+
+{
+  "stockAmount": 5
+}
+
+
+### DELETE por ID 
+DELETE {{Host}}:{{Port}}/api/v1/productos/{{id}}
+x-api-key:Aprobada
+Accept: application/json
+
+
+### Obtener CSV (ruta correcta)
+GET {{Host}}:{{Port}}/api/v1/albums/csv
+Accept: text/csv
+
+
+### 404 – Ruta inexistente
+GET {{Host}}:{{Port}}/ruta-inexistente
+Accept: application/json

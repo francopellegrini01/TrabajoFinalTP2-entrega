@@ -2,42 +2,19 @@ import dotenv from "dotenv";
 
 dotenv.config();
 
-//hay que obtener los datos del archivo .env
-//llamo 1 vez al proceos, y cada vez que lo llamo que busque todas las variables que hay aca adentro
-//para entrar a un solo lugar, conviene que los datos esten en un solo lugar, en lugar dedistintas carpetas.
-//conviene que este todo centralizado, y esto es lo que hace el archivo config.
-//centraliza toda tu informacion relevante, sin necesidad, que el usuario sepa.
-
-//Link Api externa
-export const DATOSAPI_URL =
-	"https://691e2d3bbb52a1db22bd39ef.mockapi.io/api/capacitacionesExternas/CapacitacionesExternas";
-
-// Base de datos y servidor	
-const {
-	MYSQL_DB,
-	MYSQL_USER,
-	MYSQL_PWD,
-	MYSQL_PORT,
-	MYSQL_HOST,
-	DIALECT,
-	SERVER_PORT,
-	SERVER_HOST,
-	SUPABASE_URL,      
-	SUPABASE_API_KEY,
-	JWT_SECRET,
-} = process.env;
-
-//exporta los mismos elementos que obtiene
 export const config = {
-	MYSQL_DB,
-	MYSQL_USER,
-	MYSQL_PWD,
-	MYSQL_PORT,
-	MYSQL_HOST,
-	DIALECT,
-	SERVER_PORT,
-	SERVER_HOST,
-	SUPABASE_URL,
-	SUPABASE_API_KEY,
-	JWT_SECRET,
+port: process.env.PORT || 3001,
+
+// Persistencia (mongo | json) 
+dbProvider: process.env.DB_PROVIDER || "mongo",
+
+// MongoDB Atlas 
+mongoUri: process.env.MONGO_URI || "",
+
+// Seguridad 
+apiKey: process.env.API_KEY || "soy-una-api-key", 
+
+// Protección opcional del endpoint /albums/csv
+protectAlbumsCsv: process.env.PROTECT_ALBUMS_CSV === "true",
 };
+
